@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int singleNonDuplicate(vector<int> &arr)
+//Brute force: Shizuka's Algorithm
+int singleNonDuplicate1(vector<int> &arr)
 {
     int n = arr.size();
     int answer;
@@ -30,11 +31,33 @@ int singleNonDuplicate(vector<int> &arr)
     return answer;
 }
 
+//Log N: Binary Search Method
+int singleNonDuplicate2(vector<int>& arr) {
+    int left = 0, right = arr.size() - 1;
+
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+
+        if (mid % 2 == 1) {
+            mid--; 
+        }
+
+        if (arr[mid] != arr[mid + 1]) {
+            right = mid;
+        } else {
+            left = mid + 2;
+        }
+    }
+
+    return arr[left];
+}
+
+
 int main()
 {
     vector<int> arr = {1, 1, 2, 2, 3, 3, 4, 5, 5};
 
-    int ans = singleNonDuplicate(arr);
+    int ans = singleNonDuplicate1(arr);
 
     cout << ans;
     return 0;
