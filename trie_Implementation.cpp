@@ -139,4 +139,29 @@ public:
         // Write your code here.
         eraseUtil(root, word);
     }
+
+    bool searchUtil(TrieNode *root, string word)
+    {
+        if (word.length() == 0)
+        {
+            return root->isTerminal;
+        }
+
+        char ch = word[0];
+        int index = ch - 'a';
+
+        TrieNode *child;
+
+        if (root->children[index] != NULL)
+            child = root->children[index];
+        else
+            return false;
+
+        return searchUtil(child, word.substr(1));
+    }
+
+    bool search(string &word)
+    {
+        return searchUtil(root, word);
+    }
 };
